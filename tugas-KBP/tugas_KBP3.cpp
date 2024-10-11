@@ -32,7 +32,7 @@ void inputNIlai(const map<string, int>& barang) {
     string input_barang;
     int kuantitas;
     int total = 0;
-    map<string, pair<int, int>> subtotal;
+    map<string, pair<int, int>> subtotal; //menyimpan first(barang) dan second(isi pair adalah first(kuantitas) dan second(harga) dari map)
     
     //looping konfirmasi lanjut belanja
     char lanjut = 'y';
@@ -64,7 +64,7 @@ void inputNIlai(const map<string, int>& barang) {
     cout << left << setw(15) << "Nama Barang" << setw(10) << "Qty" << setw(10) << "Subtotal" << endl;
     cout << string(35, '-') << endl;
 
-    //perulangan mencetak kuitansi
+    //perulangan iterasi mencetak kuitansi
     for (const auto& item : subtotal) {
         cout << left << setw(15) << item.first
         << setw(10) << item.second.first //mencetak qty
