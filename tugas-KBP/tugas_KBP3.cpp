@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <iomanip>
 using namespace std;
 
 //list barang dan harga
@@ -12,14 +13,18 @@ void barangDanHarga(map<string, int>& barang) { //deklarasikan map barang
     barang["pulpen"] = 3000;
     barang["penghapus"] = 1000;
     barang["penggaris"] = 5000;
+    barang["tinta"] = 15000;
+    barang["kertas"] = 500;
+    barang["lem"] = 4500;
 
-    cout << "Daftar barang dan harga"<< endl;
+    cout << left << setw(15) << "Nama Barang" << right << setw(10) << "Harga" << endl; //header untuk tabel daftar barang
+    cout << string(25, '-') << endl;
 
     //mencetak barang dan harga
     for (const auto& item : barang) {
-        cout << item.first << " : " << item.second << endl;
+        cout << left <<setw(15) << item.first << right << setw(10) << item.second << endl;
     }
-    cout << endl;
+    cout << string(25, '=') << endl;
 }
 
 void inputNIlai(const map<string, int>& barang) {
@@ -27,7 +32,7 @@ void inputNIlai(const map<string, int>& barang) {
     string input_barang;
     int kuantitas;
     int total = 0;
-    map<string, int> subtotal;
+    map<string, pair<int, int>> subtotal;
     
     //looping konfirmasi lanjut belanja
     char lanjut = 'y';
@@ -37,13 +42,15 @@ void inputNIlai(const map<string, int>& barang) {
 
         cout << "Jumlah barang: ";
         cin >> kuantitas;
+
         
         //jika barang tidak ditemukan
         if (barang.find(input_barang) == barang.end()) {
             cout << "Barang tidak ditemukan" << endl;
         } else {
             total += barang.at(input_barang) * kuantitas; //menghitung total belanja
-            subtotal[input_barang] += barang.at(input_barang) * kuantitas; //menghitung subtotal belanja
+            subtotal[input_barang].first += kuantitas; //menghitung kuantity setiap barang
+            subtotal[input_barang].second += barang.at(input_barang) * kuantitas; //menghitung subtotal belanja
         }
 
         //konfirmasi lanjut belanja
@@ -51,20 +58,31 @@ void inputNIlai(const map<string, int>& barang) {
         cin >> lanjut;
     }
 
-    //mencetak subtotal
-    cout << "subtotals" << endl;
+    cout << string(35, '=') << endl;
+    //mencetak kuitansi
+    cout << "\nKuitansi Belanja\n";
+    cout << left << setw(15) << "Nama Barang" << setw(10) << "Qty" << setw(10) << "Subtotal" << endl;
+    cout << string(35, '-') << endl;
+
+    //perulangan mencetak kuitansi
     for (const auto& item : subtotal) {
-        cout << item.first << " : " << item.second << endl;
+        cout << left << setw(15) << item.first
+        << setw(10) << item.second.first //mencetak qty
+        << right << setw(10) << item.second.second << endl; //emncetak subtotal
     }
+    cout << string(35, '-') << endl;
+
     //mencetak total belanja
     cout << endl;
-    cout << "Total belanja: " << total << endl;
+    cout << left << setw(15) << "Total belanja" << right << " :Rp." << total << endl;
+    cout << left << setw(15) << "Pajak 10%" << right << " :Rp." << total * 0.1 << endl;
+    cout << left << setw(15) << "Grand total"<< right << " :Rp." << total + (total * 0.1);
 }
 
 int main() {
     map<string, int> barang; //deklarasi map barang
     barangDanHarga(barang); //memanggil fungsi barangDanHarga
     inputNIlai(barang); //memanggil fungsi inputNIlai
-    
+
     return 0;
 }
