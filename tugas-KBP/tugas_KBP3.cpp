@@ -27,6 +27,7 @@ void barangDanHarga(map<string, int>& barang) { //deklarasikan map barang
     cout << string(25, '=') << endl;
 }
 
+ //fungsi input nilai dan menghitung barang yang dibeli
 void inputNIlai(const map<string, int>& barang) {
     //deklarasi variabel untuk menyimpan input
     string input_barang;
