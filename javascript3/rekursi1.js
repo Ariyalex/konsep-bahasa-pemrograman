@@ -4,5 +4,8 @@ function loop(x) {
     }
 
     loop(x + 1);
+    console.log(x);
 }
 loop(0);
+
+// Output:

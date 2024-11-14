@@ -1,9 +1,10 @@
 function walkTree(node) {
-    if (node = null) {
+    if (node === null) {
         return;
     }
 
-    for (var i = 0; i < node.childNodes.length; i++) {
+    for (let i = 0; i < node.childNodes.length; i++) {
         walkTree(node.childNodes[i]);
     }
+    console.log(node);
 }
